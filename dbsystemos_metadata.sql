@@ -52,4 +52,33 @@ select * from tbclientes;
 update tbclientes set nomecli = 'Rodrigo Pereira' where idcli = '2';
 update tbclientes set emailcli = 'rodrigopereira@corporate' where idcli = '2';
 
+use dbsystemos;
+
+create table tbos(
+os int primary key auto_increment,
+data_os timestamp default current_timestamp,
+equipamento varchar(150) not null,
+defeito varchar(150) not null,
+servico varchar(150),
+tecnico varchar(30),
+valor decimal(10,2),
+idcli int not null,
+foreign key(idcli) references tbclientes(idcli)
+);
+
+describe tbos;
+
+insert into tbos (equipamento,defeito,servico,tecnico,valor,idcli)
+values ('Notebook','Não liga','Troca da fonte','Samuel','350.00',1);
+
+select * from tbos;
+
+-- TRAZER INFORMAÇÕES DE DUAS TABELAS
+select
+O.os,equipamento,defeito,valor,servico,
+C.nomecli,fonecli
+from tbos as O
+inner join tbclientes as C
+on (O.idcli = C.idcli);
+
 
